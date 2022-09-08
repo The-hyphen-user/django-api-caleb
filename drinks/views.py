@@ -21,11 +21,10 @@ def drink_list(request, format=None):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def drink_detail(request, id, format=None):
-
     try:
         drink = Drink.objects.get(pk=id)
     except Drink.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"error":"Drink Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = DrinkSerializer(drink)
