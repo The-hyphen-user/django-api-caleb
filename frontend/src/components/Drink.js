@@ -11,10 +11,17 @@ const Drink = ({ id, name, description, deleteSelf, updateSelf }) => {
     setEditMode(false);
   };
 
+  const editModeSelect = () => {
+    setEditMode(!editMode);
+    setEditName(name);
+    setEditDescription(description);
+  };
+
+
   return (
     <div className="drink">
       {editMode ? (
-        <div>
+        <div className="margin-top">
           <input
             value={editName}
             onChange={(e) => setEditName(e.target.value)}
@@ -27,12 +34,14 @@ const Drink = ({ id, name, description, deleteSelf, updateSelf }) => {
         </div>
       ) : (
         <div>
-          <h3>{name}</h3>
+          <h1>{name}</h1>
           <p>{description}</p>
         </div>
       )}
-      <button onClick={() => deleteSelf(id)}>{"X"}</button>
-      <button onClick={() => setEditMode(!editMode)}>{"Edit"}</button>
+      {editMode ? (null):(<button onClick={() => deleteSelf(id)}>{"X"}</button>)}
+      <button onClick={editModeSelect}>{
+        editMode ? "Cancel" : "Edit"
+        }</button>
     </div>
   );
 };
